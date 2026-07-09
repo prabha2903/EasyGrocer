@@ -1,7 +1,7 @@
 import express from "express";
 import authUser from "../middlewares/authUser.js";
 import authSeller from "../middlewares/authSeller.js";
-import { getAllOrders, getUserOrders, placeOrderCOD } from "../controllers/orderController.js";
+import { getAllOrders, getUserOrders, placeOrderCOD,updateOrderStatus } from "../controllers/orderController.js";
 import Razorpay from "razorpay";
 import crypto from "crypto";
 
@@ -15,6 +15,7 @@ orderRouter.get("/user", authUser, getUserOrders);
 
 // 🟢 Seller Orders
 orderRouter.get("/seller", authSeller, getAllOrders);
+orderRouter.put("/status/:id", authSeller, updateOrderStatus);
 
 // 🟢 Online Payment - Create Razorpay Order
 orderRouter.post("/online", authUser, async (req, res) => {
